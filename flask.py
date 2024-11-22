@@ -3,7 +3,7 @@ import google.generativeai as ai
 from PIL import Image
 
 
-st.image(r"C:\Users\anees\OneDrive\Pictures\Downloads\AI.jpeg")
+st.image(r"AI.jpeg")
 
 # Set the API key directly
 api_key1 = "AIzaSyAXQ2pvBuaCGp44SaUEgWYdpE_QPNdEOP4"
