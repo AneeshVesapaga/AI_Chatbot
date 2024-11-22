@@ -27,18 +27,29 @@ chatbot = model.start_chat(history=[])
 
 st.title("Data Science Tutor Application")
 
+st.chat_message("ai").write("𝗛𝗲𝘆! 𝗜'𝗺 𝗙𝗿𝗶𝗱𝗮𝘆, 𝘆𝗼𝘂𝗿 𝘀𝗺𝗮𝗿𝘁 𝗔𝗜. 𝗛𝗼𝘄 𝗰𝗮𝗻 𝗜 𝗵𝗲𝗹𝗽 you")
+
 # Collect user input
-user_prompt = st.text_input("Enter your query", placeholder="I'm looking for details here...")
 
 st.sidebar.title("Chat History")
 if st.session_state.chat_history:
     for i, (role, text) in enumerate(st.session_state.chat_history):
         st.sidebar.write(f"**{i + 1}. {role.capitalize()}**: {text}")
 
-btn_click = st.button("Generate Answer")
+user_prompt = st.chat_input("I'm looking for details here...")
 
-if btn_click and user_prompt:
+
+
+if  user_prompt:
     # Generate the response
-    response = model.generate_content(user_prompt)  # Confirm the correct method name here
+    st.session_state.chat_history.append(("human", user_prompt))
+    st.chat_message("human").write(user_prompt)
+    
+    # Generate AI response
+    response = chatbot.send_message(user_prompt)
     st.session_state.chat_history.append(("ai", response.text))
-    st.write(response.text)
+    st.chat_message("ai").write(response.text)
+
+    # response = model.generate_content(user_prompt)  # Confirm the correct method name here
+    # st.session_state.chat_history.append(("ai", response.text))
+    # st.write(response.text)
